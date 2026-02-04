@@ -186,10 +186,9 @@ def fetch_runs(event_id: str) -> list[dict]:
     event_key = os.getenv("INNGEST_EVENT_KEY")
     headers = {}
     if event_key:
+        # Inngest Cloud /runs endpoint uses only X-Inngest-Event-Key header
         headers = {
-            "Authorization": f"Bearer {event_key}",
             "X-Inngest-Event-Key": event_key,
-            "X-Inngest-Env": "production",
         }
     resp = requests.get(url, headers=headers)
     resp.raise_for_status()

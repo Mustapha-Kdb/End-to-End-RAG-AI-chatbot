@@ -184,7 +184,13 @@ def _inngest_api_base() -> str:
 def fetch_runs(event_id: str) -> list[dict]:
     url = f"{_inngest_api_base()}/events/{event_id}/runs"
     event_key = os.getenv("INNGEST_EVENT_KEY")
-    headers = {"Authorization": f"Bearer {event_key}"} if event_key else {}
+    headers = {}
+    if event_key:
+        headers = {
+            "Authorization": f"Bearer {event_key}",
+            "X-Inngest-Event-Key": event_key,
+            "X-Inngest-Env": "production",
+        }
     resp = requests.get(url, headers=headers)
     resp.raise_for_status()
     data = resp.json()

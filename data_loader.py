@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 import os
 import requests
 import json
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+
 
 load_dotenv()
 api_key = os.getenv("API_KEY")
@@ -12,7 +14,11 @@ api_key = os.getenv("API_KEY")
 EMBED_MODEL = "openai/text-embedding-3-large"
 EMBED_DIM = 3072
 
-splitter = SentenceSplitter(chunk_size=1000, chunk_overlap=200)
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=200,
+    separators=["\n\n", "\n", ".", " ", ""],
+)
 
 def load_and_chunk_pdf(path: str):
     docs = PDFReader().load_data(file=path)

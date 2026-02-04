@@ -114,7 +114,7 @@ st.markdown(
 
 @st.cache_resource
 def get_inngest_client() -> inngest.Inngest:
-    return inngest.Inngest(app_id="rag_app", is_production=False)
+    return inngest.Inngest(app_id="rag_app", is_production=True)
 
 
 def save_uploaded_pdf(file) -> Path:

@@ -11,7 +11,7 @@ services:
       - qdrant
 
   streamlit:
-    image: <AWS_ACCOUNT_ID>.dkr.ecr.eu-west-3.amazonaws.com/rag-ui:latest
+    image: 700030737976.dkr.ecr.eu-west-3.amazonaws.com/rag-ui:latest
     env_file: .env
     ports:
       - "8501:8501"

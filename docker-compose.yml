@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  api:
+    image: <AWS_ACCOUNT_ID>.dkr.ecr.eu-west-3.amazonaws.com/rag-api:latest
+    env_file: .env
+    environment:
+      - QDRANT_URL=http://qdrant:6333
+    ports:
+      - "8000:8000"
+    depends_on:
+      - qdrant
+
+  streamlit:
+    image: <AWS_ACCOUNT_ID>.dkr.ecr.eu-west-3.amazonaws.com/rag-ui:latest
+    env_file: .env
+    ports:
+      - "8501:8501"
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+volumes:
+  qdrant_data:

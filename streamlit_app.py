@@ -158,7 +158,7 @@ if uploaded is not None:
     st.caption("You can upload another PDF if you like.")
 
 st.divider()
-st.title("Ask a question about your PDFs")
+st.title("Ask a question about your PDFs/TEST")
 
 
 async def send_rag_query_event(question: str, top_k: int) -> None:

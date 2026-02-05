@@ -183,12 +183,11 @@ def _inngest_api_base() -> str:
 
 def fetch_runs(event_id: str) -> list[dict]:
     url = f"{_inngest_api_base()}/events/{event_id}/runs"
-    event_key = os.getenv("INNGEST_EVENT_KEY")
+    signing_key = os.getenv("INNGEST_SIGNING_KEY")
     headers = {}
-    if event_key:
-        # Inngest Cloud /runs endpoint uses only X-Inngest-Event-Key header
+    if signing_key:
         headers = {
-            "X-Inngest-Event-Key": event_key,
+            "Authorization": f"Bearer {signing_key}",
         }
     resp = requests.get(url, headers=headers)
     resp.raise_for_status()

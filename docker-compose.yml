@@ -13,7 +13,7 @@ services:
       options:
         awslogs-group: /rag/api
         awslogs-region: eu-west-3
-        awslogs-stream-prefix: ecs
+        awslogs-stream: ecs
 
   streamlit:
     image: 700030737976.dkr.ecr.eu-west-3.amazonaws.com/rag-ui:latest
@@ -25,7 +25,7 @@ services:
       options:
         awslogs-group: /rag/streamlit
         awslogs-region: eu-west-3
-        awslogs-stream-prefix: ecs
+        awslogs-stream: ecs
 
   qdrant:
     image: qdrant/qdrant:latest
@@ -38,7 +38,7 @@ services:
       options:
         awslogs-group: /rag/qdrant
         awslogs-region: eu-west-3
-        awslogs-stream-prefix: ecs
+        awslogs-stream: ecs
 
 volumes:
   qdrant_data:

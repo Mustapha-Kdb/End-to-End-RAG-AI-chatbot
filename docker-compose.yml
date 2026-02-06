@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   api:
     image: 700030737976.dkr.ecr.eu-west-3.amazonaws.com/rag-api:latest
@@ -9,12 +8,24 @@ services:
       - "8000:8000"
     depends_on:
       - qdrant
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /rag/api
+        awslogs-region: eu-west-3
+        awslogs-stream-prefix: ecs
 
   streamlit:
     image: 700030737976.dkr.ecr.eu-west-3.amazonaws.com/rag-ui:latest
     env_file: .env
     ports:
       - "8501:8501"
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /rag/streamlit
+        awslogs-region: eu-west-3
+        awslogs-stream-prefix: ecs
 
   qdrant:
     image: qdrant/qdrant:latest
@@ -22,6 +33,12 @@ services:
       - "6333:6333"
     volumes:
       - qdrant_data:/qdrant/storage
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /rag/qdrant
+        awslogs-region: eu-west-3
+        awslogs-stream-prefix: ecs
 
 volumes:
   qdrant_data:
